@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AnimaDEX é a vitrine oficial de um sistema retro de captura, Dex, Tamagotchi e arcade.">
+  <meta name="theme-color" content="#102218">
+  <title>AnimaDEX — scanner, Dex, pet virtual e arcade</title>
+  <style>
+    :root {
+      --bg: #08120c;
+      --bg-2: #0f1d14;
+      --panel: rgba(11, 18, 14, 0.82);
+      --panel-2: rgba(18, 28, 22, 0.92);
+      --border: rgba(126, 217, 145, 0.14);
+      --border-strong: rgba(126, 217, 145, 0.28);
+      --text: #f4f7f4;
+      --muted: #b3c4b8;
+      --soft: #7c9484;
+      --accent: #76e38f;
+      --accent-2: #ff9d5b;
+      --accent-3: #ff5f57;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(118, 227, 143, 0.12), transparent 28%),
+        radial-gradient(circle at 85% 20%, rgba(255, 157, 91, 0.12), transparent 26%),
+        radial-gradient(circle at 50% 100%, rgba(255, 95, 87, 0.12), transparent 28%),
+        linear-gradient(180deg, #08120c 0%, #0c1710 50%, #09110d 100%);
+      font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.95), rgba(0,0,0,0.18));
+      opacity: 0.22;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(180deg, rgba(8, 18, 12, 0.9), rgba(8, 18, 12, 0.64));
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .topbar-inner {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 16px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 35% 35%, rgba(255,255,255,0.35), transparent 30%),
+        linear-gradient(145deg, #d84844, #b21d23);
+      box-shadow: 0 10px 30px rgba(210, 60, 60, 0.28), inset 0 1px 0 rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .brand h1,
+    .brand p {
+      margin: 0;
+    }
+
+    .brand h1 {
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .brand p {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: 180ms ease;
+    }
+
+    .nav a:hover {
+      border-color: var(--border);
+      color: var(--text);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero {
+      padding: 64px 0 30px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: rgba(118, 227, 143, 0.08);
+      color: #d7ffe0;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 14px rgba(118, 227, 143, 0.95);
+    }
+
+    .hero h2 {
+      margin: 18px 0 14px;
+      font-size: clamp(2.7rem, 6vw, 5.7rem);
+      line-height: 0.94;
+      letter-spacing: -0.06em;
+      text-wrap: balance;
+    }
+
+    .hero h2 span {
+      color: var(--accent);
+      text-shadow: 0 0 24px rgba(118, 227, 143, 0.16);
+    }
+
+    .hero-copy {
+      max-width: 62ch;
+      font-size: 1.08rem;
+      color: var(--muted);
+      margin: 0 0 24px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+      box-shadow: 0 12px 26px rgba(0,0,0,.16);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, #e1ffe7, #8ff0a6);
+      color: #07110b;
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn.ghost {
+      background: transparent;
+      border-color: rgba(255,255,255,0.08);
+      color: var(--muted);
+      box-shadow: none;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .pill strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .section {
+      padding: 24px 0 10px;
+    }
+
+    .section-head {
+      margin-bottom: 18px;
+    }
+
+    .section-head h3 {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      letter-spacing: -0.04em;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .feature {
+      grid-column: span 4;
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 46px rgba(0,0,0,.16);
+      min-height: 190px;
+    }
+
+    .feature .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #dff9e7;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 12px;
+    }
+
+    .feature .kicker::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      box-shadow: 0 0 14px rgba(255, 157, 91, 0.45);
+    }
+
+    .feature h4 {
+      margin: 0 0 10px;
+      font-size: 1.18rem;
+    }
+
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .feature ul {
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+    }
+
+    .feature li::before {
+      content: "•";
+      color: var(--accent);
+      margin-right: 10px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      padding: 18px 20px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.65rem;
+      line-height: 1;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .shot {
+      grid-column: span 4;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 18px 50px rgba(0,0,0,.22);
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .shot figure {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .shot img {
+      width: 100%;
+      aspect-ratio: 1242 / 2688;
+      object-fit: contain;
+      background: #030504;
+    }
+
+    .shot figcaption {
+      padding: 14px 16px 16px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .shot strong {
+      display: block;
+      color: var(--text);
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .footer {
+      padding: 38px 0 48px;
+      color: var(--soft);
+      font-size: 0.94rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .callout {
+        grid-template-columns: 1fr;
+      }
+
+      .feature,
+      .shot {
+        grid-column: span 6;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar-inner,
+      .section-head,
+      .footer-inner {
+        align-items: flex-start;
+      }
+
+      .topbar-inner,
+      .hero,
+      .section,
+      .footer {
+        width: min(var(--max), calc(100% - 24px));
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .hero h2 {
+        font-size: clamp(2.4rem, 16vw, 4.4rem);
+      }
+
+      .feature,
+      .shot,
+      .stats .stat {
+        grid-column: span 12;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .actions .btn {
+        width: 100%;
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#inicio" aria-label="Ir para o início">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="./AppLogo.png" alt="">
+        </span>
+        <span>
+          <h1>AnimaDEX</h1>
+          <p>scanner, Dex, pet virtual e arcade</p>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#recursos">Recursos</a>
+        <a href="#galeria">Screenshots</a>
+        <a href="suporte.html">Suporte</a>
+        <a href="politica-privacidade.html">Privacidade</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <h2>AnimaDEX transforma capturas em <span>Dex viva</span>.</h2>
+          <p class="hero-copy">
+            Scanner, Dex, Playground, Tamagotchi e arcade em um único sistema retro. AnimaDEX reúne
+            captura inteligente e um universo feito para ganhar vida na tela.
+          </p>
+
+          <div class="actions">
+            <a class="btn primary" href="#galeria">Ver screenshots</a>
+            <a class="btn secondary" href="#recursos">Explorar recursos</a>
+            <a class="btn ghost" href="suporte.html">Falar com suporte</a>
+          </div>
+
+          <div class="meta-row" aria-label="Destaques do produto">
+            <span class="pill"><strong>Dex universal</strong> pets, objetos e mais</span>
+            <span class="pill"><strong>15 minigames</strong> arcade integrado</span>
+            <span class="pill"><strong>AR + 3D</strong> experiência expandida</span>
+            <span class="pill"><strong>.adex</strong> importação e exportação</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="recursos">
+      <div class="wrap">
+        <div class="section-head">
+          <h3>Recursos principais</h3>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature">
+            <span class="kicker">Captura</span>
+            <h4>Scanner com foco em utilidade e apresentação</h4>
+            <p>Captura, importação e ficha com acabamento visual de console.</p>
+            <ul>
+              <li>Registro com identificação e atributos</li>
+              <li>Compartilhamento da ficha pronta</li>
+              <li>Importação por imagem e clipboard</li>
+            </ul>
+          </article>
+
+          <article class="feature">
+            <span class="kicker">Dex</span>
+            <h4>Organização clara, busca, favoritos e exportação</h4>
+            <p>A Dex é o núcleo do app, com navegação simples e recursos para guardar tudo com segurança.</p>
+            <ul>
+              <li>Busca, filtros e ordenação</li>
+              <li>Exportação e importação `.adex`</li>
+              <li>Compartilhamento via extensão</li>
+            </ul>
+          </article>
+
+          <article class="feature">
+            <span class="kicker">Playground</span>
+            <h4>Recortes, personalização e uso real dos pets</h4>
+            <p>O Playground amplia a identidade dos pets para o Tamagotchi e o arcade.</p>
+            <ul>
+              <li>Recorte manual e ajustes finos</li>
+              <li>Tratamento de imagem dedicado</li>
+              <li>Acesso aos pets flutuantes da home</li>
+            </ul>
+          </article>
+
+          <article class="feature">
+            <span class="kicker">Tamagotchi</span>
+            <h4>Um hardware virtual com personalidade</h4>
+            <p>O console do pet reúne status, acessórios e shell visual com presença premium.</p>
+            <ul>
+              <li>Fome, felicidade, saúde, limpeza e energia</li>
+              <li>Acessórios, quartos e boot animations</li>
+              <li>Modos de cuidado e navegação por hardware</li>
+            </ul>
+          </article>
+
+          <article class="feature">
+            <span class="kicker">Arcade</span>
+            <h4>Minigames variados com linguagem unificada</h4>
+            <p>O arcade faz parte da marca e usa a mesma linguagem do sistema.</p>
+            <ul>
+              <li>Plataformas, corrida, puzzle, futebol e mais</li>
+              <li>HUD padronizado e recompensas</li>
+              <li>Suporte a controles Bluetooth em jogos compatíveis</li>
+            </ul>
+          </article>
+
+          <article class="feature">
+            <span class="kicker">Monetização</span>
+            <h4>Recursos avançados, anúncios e compras claras</h4>
+            <p>O modelo comercial já nasce integrado à experiência do produto.</p>
+            <ul>
+              <li>Compra para remover anúncios</li>
+              <li>Liberação de recursos avançados</li>
+              <li>Integração com App Store e consentimento</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="stats" aria-label="Resumo do produto">
+          <div class="stat">
+            <strong>15</strong>
+            <span>minigames listados na experiência atual</span>
+          </div>
+          <div class="stat">
+            <strong>3</strong>
+            <span>modos de aparência: Claro, Noturno e Sistema</span>
+          </div>
+          <div class="stat">
+            <strong>.adex</strong>
+            <span>formato nativo para exportar e importar a Dex</span>
+          </div>
+          <div class="stat">
+            <strong>AR</strong>
+            <span>expansão do app com captura em ambiente real</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="galeria">
+      <div class="wrap">
+        <div class="section-head">
+          <h3>Capturas oficiais do produto em uso.</h3>
+        </div>
+
+        <div class="gallery">
+          <article class="shot">
+            <figure>
+              <img loading="lazy" decoding="async" src="./IMG_7245_1242x2688.jpg" alt="Tela de captura em modo câmera do AnimaDEX">
+              <figcaption>
+                <strong>Captura</strong>
+                O fluxo de câmera já mostra a proposta: registrar, reconhecer e transformar em ficha.
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="shot">
+            <figure>
+              <img loading="lazy" decoding="async" src="./IMG_7246_1242x2688.jpg" alt="Tela de ficha do pet com status e compartilhar">
+              <figcaption>
+                <strong>Ficha do pet</strong>
+                Layout de card com atributos, INFO editável e botão de compartilhamento.
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="shot">
+            <figure>
+              <img loading="lazy" decoding="async" src="./IMG_7247_1242x2688.jpg" alt="Minigame Runner Jump do AnimaDEX">
+              <figcaption>
+                <strong>Runner Jump</strong>
+                Um dos minigames que reforça o lado arcade do produto.
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="shot">
+            <figure>
+              <img loading="lazy" decoding="async" src="./IMG_7248_1242x2688.jpg" alt="Minigame Flappy Pet do AnimaDEX">
+              <figcaption>
+                <strong>Flappy Pet</strong>
+                O personagem vira protagonista também dentro do jogo.
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="shot">
+            <figure>
+              <img loading="lazy" decoding="async" src="./IMG_7249_1242x2688.jpg" alt="Tela de puzzle com imagem do pet do AnimaDEX">
+              <figcaption>
+                <strong>Puzzle</strong>
+                O uso das imagens da Dex dentro do arcade faz a experiência parecer conectada.
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="shot">
+            <figure>
+              <img loading="lazy" decoding="async" src="./IMG_7250_1242x2688.jpg" alt="Tela de Blitz AR com pet no ambiente">
+              <figcaption>
+                <strong>Blitz AR</strong>
+                A prova de que o app vai além do 2D e entrega experiências no espaço real.
+              </figcaption>
+            </figure>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <strong style="color: var(--text); letter-spacing: 0.12em; text-transform: uppercase;">AnimaDEX</strong>
+        <div style="margin-top: 6px;">© 2026 AnimaLabs. Todos os direitos reservados.</div>
+      </div>
+      <div class="footer-links" aria-label="Links legais">
+        <a href="suporte.html">Suporte</a>
+        <a href="politica-privacidade.html">Política de Privacidade</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -3,79 +3,240 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102218">
   <title>Privacy Policy — Anima PlayDEX</title>
-  
-<style>
-  :root {
-    --bg: #0f1020;
-    --card: #181a32;
-    --text: #f4f4f8;
-    --muted: #b9b9c9;
-    --accent: #7c5cff;
-    --border: #2a2d4d;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    background: radial-gradient(circle at top, #23264a 0%, var(--bg) 55%);
-    color: var(--text);
-    line-height: 1.65;
-  }
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 32px 20px 56px;
-  }
-  .card {
-    background: rgba(24, 26, 50, 0.92);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 32px;
-    box-shadow: 0 18px 50px rgba(0,0,0,.25);
-  }
-  h1 { line-height: 1.2; margin-top: 0; }
-  h2 { margin-top: 32px; color: #ffffff; }
-  h3 { margin-top: 24px; color: #ffffff; }
-  p, li { color: var(--muted); }
-  strong { color: var(--text); }
-  a { color: #a99bff; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  ul { padding-left: 22px; }
-  .topnav {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
-  .topnav a {
-    background: rgba(124, 92, 255, .14);
-    border: 1px solid rgba(124, 92, 255, .35);
-    border-radius: 999px;
-    padding: 8px 13px;
-    color: #ddd7ff;
-    font-size: 14px;
-  }
-  .updated {
-    color: #d8d5ff;
-    font-weight: 600;
-  }
-  footer {
-    margin-top: 24px;
-    text-align: center;
-    color: #8f91aa;
-    font-size: 13px;
-  }
-</style>
-
+  <style>
+    :root {
+      --bg: #08120c;
+      --panel: rgba(11, 18, 14, 0.82);
+      --border: rgba(126, 217, 145, 0.14);
+      --border-strong: rgba(126, 217, 145, 0.28);
+      --text: #f4f7f4;
+      --muted: #b3c4b8;
+      --soft: #7c9484;
+      --accent: #76e38f;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+      --radius-xl: 30px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(118, 227, 143, 0.12), transparent 28%),
+        radial-gradient(circle at 85% 20%, rgba(255, 157, 91, 0.12), transparent 26%),
+        radial-gradient(circle at 50% 100%, rgba(255, 95, 87, 0.12), transparent 28%),
+        linear-gradient(180deg, #08120c 0%, #0c1710 50%, #09110d 100%);
+      font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.95), rgba(0,0,0,0.18));
+      opacity: 0.22;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(180deg, rgba(8, 18, 12, 0.9), rgba(8, 18, 12, 0.64));
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .topbar-inner {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 16px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(210, 60, 60, 0.28), inset 0 1px 0 rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .brand h1,
+    .brand p { margin: 0; }
+    .brand h1 {
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+    .brand p {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: 180ms ease;
+    }
+    .nav a:hover {
+      border-color: var(--border);
+      color: var(--text);
+      background: rgba(255,255,255,0.04);
+    }
+    .hero {
+      padding: 56px 0 26px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: rgba(118, 227, 143, 0.08);
+      color: #d7ffe0;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 14px rgba(118, 227, 143, 0.95);
+    }
+    .hero h2 {
+      margin: 18px 0 14px;
+      font-size: clamp(2.2rem, 5vw, 4.4rem);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+    }
+    .hero p {
+      margin: 0;
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+    h1 { line-height: 1.2; margin-top: 0; }
+    h2 { margin-top: 32px; color: #ffffff; }
+    h3 { margin-top: 24px; color: #ffffff; }
+    p, li { color: var(--muted); }
+    strong { color: var(--text); }
+    a { color: #d7ffe0; }
+    a:hover { text-decoration: underline; }
+    ul { padding-left: 22px; }
+    .topnav {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .topnav a {
+      background: rgba(118, 227, 143, 0.08);
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      padding: 8px 13px;
+      color: #d7ffe0;
+      font-size: 14px;
+    }
+    .updated {
+      color: #d8d5ff;
+      font-weight: 600;
+    }
+    .footer {
+      margin: 24px 0 40px;
+      color: var(--soft);
+      font-size: 13px;
+      text-align: center;
+    }
+    .footer-inner {
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    @media (max-width: 720px) {
+      .topbar-inner { align-items: flex-start; }
+      .nav { justify-content: flex-start; }
+      .hero { padding-top: 36px; }
+      .card { padding: 24px; }
+    }
+  </style>
 </head>
 <body>
-  <main class="container">
-    <nav class="topnav">
-      <a href="./privacy-policy.html">English Privacy Policy</a>
-      <a href="./politica-privacidade.html">Política em Português</a>
-      <a href="./suporte.html">Support</a>
-    </nav>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./index.html" aria-label="Go to the home page">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="./AppLogo.png" alt="">
+        </span>
+        <span>
+          <h1>AnimaDEX</h1>
+          <p>scanner, Dex, pet virtual e arcade</p>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="./index.html">Home</a>
+        <a href="./suporte.html">Support</a>
+        <a href="./politica-privacidade.html">Política em Português</a>
+        <a href="./privacy-policy.html">English Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <span class="eyebrow">Official policy</span>
+      <h2>Privacy, data handling, and user rights.</h2>
+      <p>Clear privacy information for Anima PlayDEX users and regulators.</p>
+    </section>
+
     <section class="card">
       <h1>Privacy Policy — Anima PlayDEX</h1>
       <p class="updated"><strong>Last updated:</strong> May 2026</p>
@@ -137,7 +298,10 @@
       <p><strong>AnimaLabs</strong><br>
       <strong>Email:</strong> <a href="mailto:tklabs.enterprise@gmail.com">tklabs.enterprise@gmail.com</a></p>
     </section>
-    <footer>© 2026 AnimaLabs — Anima PlayDEX</footer>
+
+    <footer class="footer">
+      <div class="footer-inner">© 2026 AnimaLabs — Anima PlayDEX</div>
+    </footer>
   </main>
 </body>
 </html>
