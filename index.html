@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Anima PlayDEX é a vitrine oficial de um sistema retro de captura, Dex, AnimaPet e arcade.">
+  <meta name="description" content="Anima PlayDEX: scanner com IA, Dex universal, AnimaPet e arcade com mais de 40 minigames — no iPhone, Android, Apple Watch e Wear OS.">
   <meta name="theme-color" content="#102218">
   <title>Anima PlayDEX — scanner, Dex, pet virtual e arcade</title>
   <style>
@@ -76,11 +76,12 @@
     .topbar-inner {
       width: min(var(--max), calc(100% - 32px));
       margin: 0 auto;
-      padding: 16px 0;
+      padding: 14px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 18px;
+      flex-wrap: wrap;
     }
 
     .brand {
@@ -187,8 +188,8 @@
 
     .hero h2 {
       margin: 18px 0 14px;
-      font-size: clamp(2.7rem, 6vw, 5.7rem);
-      line-height: 0.94;
+      font-size: clamp(2.4rem, 6vw, 5.4rem);
+      line-height: 0.96;
       letter-spacing: -0.06em;
       text-wrap: balance;
     }
@@ -200,7 +201,7 @@
 
     .hero-copy {
       max-width: 62ch;
-      font-size: 1.08rem;
+      font-size: clamp(1rem, 2.4vw, 1.08rem);
       color: var(--muted);
       margin: 0 0 24px;
     }
@@ -286,14 +287,19 @@
       letter-spacing: -0.04em;
     }
 
+    .section-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 70ch;
+    }
+
     .feature-grid {
       display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 14px;
     }
 
     .feature {
-      grid-column: span 4;
       padding: 20px;
       border-radius: var(--radius-lg);
       background: var(--panel);
@@ -349,7 +355,7 @@
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 14px;
       margin-top: 18px;
     }
@@ -374,14 +380,44 @@
       font-size: 0.94rem;
     }
 
+    .platforms {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .platform {
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .platform .icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .platform h4 {
+      margin: 0 0 8px;
+      font-size: 1.06rem;
+    }
+
+    .platform p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
     .gallery {
       display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 14px;
     }
 
     .shot {
-      grid-column: span 4;
       border-radius: var(--radius-lg);
       overflow: hidden;
       background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
@@ -450,62 +486,38 @@
       color: var(--text);
     }
 
-    @media (max-width: 980px) {
-      .hero-grid,
-      .callout {
-        grid-template-columns: 1fr;
-      }
-
-      .feature,
-      .shot {
-        grid-column: span 6;
-      }
-
-      .stats {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
     @media (max-width: 720px) {
-      .topbar-inner,
-      .section-head,
-      .footer-inner {
-        align-items: flex-start;
-      }
-
-      .topbar-inner,
-      .hero,
-      .section,
-      .footer {
-        width: min(var(--max), calc(100% - 24px));
-      }
-
       .hero {
         padding-top: 36px;
       }
 
       .nav {
         justify-content: flex-start;
-      }
-
-      .hero h2 {
-        font-size: clamp(2.4rem, 16vw, 4.4rem);
-      }
-
-      .feature,
-      .shot,
-      .stats .stat {
-        grid-column: span 12;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .actions .btn {
         width: 100%;
       }
 
+      .nav a {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+      }
+
+      .actions .btn {
+        flex: 1 1 100%;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .brand p {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -524,6 +536,7 @@
 
       <nav class="nav" aria-label="Navegação principal">
         <a href="#recursos">Recursos</a>
+        <a href="#plataformas">Plataformas</a>
         <a href="#galeria">Screenshots</a>
         <a href="suporte.html">Suporte</a>
         <a href="politica-privacidade.html">Privacidade</a>
@@ -535,10 +548,12 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
+          <span class="eyebrow">iPhone · Android · Apple Watch · Wear OS</span>
           <h2>Anima PlayDEX transforma capturas em <span>Dex Jogáveis</span>.</h2>
           <p class="hero-copy">
-            Scanner, Dex, Playground, AnimaPet e arcade em um único sistema retro. Anima PlayDEX reúne
-            captura inteligente e um universo feito para ganhar vida na tela.
+            Escaneie com a câmera, registre na Dex, cuide do seu AnimaPet e jogue um arcade retro
+            com mais de 40 minigames — incluindo partidas online 1v1. Tudo num único sistema com
+            visual de console, do telefone ao relógio.
           </p>
 
           <div class="actions">
@@ -549,8 +564,9 @@
 
           <div class="meta-row" aria-label="Destaques do produto">
             <span class="pill"><strong>Dex universal</strong> pets, objetos e mais</span>
-            <span class="pill"><strong>16 minigames</strong> arcade integrado</span>
-            <span class="pill"><strong>AR + 3D</strong> experiência expandida</span>
+            <span class="pill"><strong>40+ minigames</strong> arcade integrado</span>
+            <span class="pill"><strong>Online 1v1</strong> multiplayer via Game Center</span>
+            <span class="pill"><strong>4 plataformas</strong> telefone e relógio</span>
             <span class="pill"><strong>.adex</strong> importação e exportação</span>
           </div>
         </div>
@@ -566,11 +582,11 @@
         <div class="feature-grid">
           <article class="feature">
             <span class="kicker">Captura</span>
-            <h4>Scanner com foco em utilidade e apresentação</h4>
-            <p>Captura, importação e ficha com acabamento visual de console.</p>
+            <h4>Scanner com IA e edição de recorte completa</h4>
+            <p>Da câmera à ficha pronta, com ferramentas de recorte profissionais dentro do app.</p>
             <ul>
               <li>Registro com identificação e atributos</li>
-              <li>Compartilhamento da ficha pronta</li>
+              <li>Recorte manual, borracha, pré-corte e efeitos</li>
               <li>Importação por imagem e clipboard</li>
             </ul>
           </article>
@@ -580,20 +596,9 @@
             <h4>Organização clara, busca, favoritos e exportação</h4>
             <p>A Dex é o núcleo do app, com navegação simples e recursos para guardar tudo com segurança.</p>
             <ul>
-              <li>Busca, filtros e ordenação</li>
-              <li>Exportação e importação `.adex`</li>
-              <li>Compartilhamento via extensão</li>
-            </ul>
-          </article>
-
-          <article class="feature">
-            <span class="kicker">Playground</span>
-            <h4>Recortes, personalização e uso real dos pets</h4>
-            <p>O Playground amplia a identidade dos pets para o AnimaPet e o arcade.</p>
-            <ul>
-              <li>Recorte manual e ajustes finos</li>
-              <li>Tratamento de imagem dedicado</li>
-              <li>Acesso aos pets flutuantes da home</li>
+              <li>Busca, filtros por identidade e favoritos</li>
+              <li>Exportação e importação .adex</li>
+              <li>Seleção em lote: favoritar, apagar, exportar</li>
             </ul>
           </article>
 
@@ -604,50 +609,93 @@
             <ul>
               <li>Fome, felicidade, saúde, limpeza e energia</li>
               <li>Acessórios, quartos e boot animations</li>
-              <li>Modos de cuidado e navegação por hardware</li>
+              <li>Aparência clara, noturna ou automática</li>
             </ul>
           </article>
 
           <article class="feature">
             <span class="kicker">Arcade</span>
-            <h4>Minigames variados com linguagem unificada</h4>
-            <p>O arcade faz parte da marca e usa a mesma linguagem do sistema.</p>
+            <h4>Mais de 40 minigames com linguagem unificada</h4>
+            <p>Plataforma, corrida, tabuleiro, cartas, puzzle, ritmo, RPG e esporte — todos com seus pets.</p>
             <ul>
-              <li>Plataformas, corrida, puzzle, futebol e mais</li>
-              <li>HUD padronizado e recompensas</li>
+              <li>Recordes, leaderboard e tutorial por jogo</li>
+              <li>Music Hero com bandas personalizáveis</li>
               <li>Suporte a controles Bluetooth em jogos compatíveis</li>
             </ul>
           </article>
 
           <article class="feature">
-            <span class="kicker">Monetização</span>
-            <h4>Recursos avançados, anúncios e compras claras</h4>
-            <p>O modelo comercial já nasce integrado à experiência do produto.</p>
+            <span class="kicker">Online</span>
+            <h4>Multiplayer 1v1 via Game Center</h4>
+            <p>Convide um amigo e joguem em tempo real ou por turnos, cada um vendo o próprio lado do tabuleiro.</p>
             <ul>
-              <li>Compra para remover anúncios</li>
-              <li>Liberação de recursos avançados</li>
-              <li>Integração com App Store e consentimento</li>
+              <li>Super Soccer, Damas, Dominó e Dunou</li>
+              <li>Anima Connect, Anima OH!, Memory e Spot It</li>
+              <li>Pause sincronizado e reconexão amigável</li>
+            </ul>
+          </article>
+
+          <article class="feature">
+            <span class="kicker">Extras</span>
+            <h4>Playground vivo além dos jogos</h4>
+            <p>O universo dos pets se estende em experiências dedicadas dentro do mesmo console.</p>
+            <ul>
+              <li>Teatro dos Heróis com cenas animadas</li>
+              <li>Tocador de músicas com vinil retro</li>
+              <li>Praça dos pets e captura em AR</li>
             </ul>
           </article>
         </div>
 
         <div class="stats" aria-label="Resumo do produto">
           <div class="stat">
-            <strong>16</strong>
-            <span>minigames listados na experiência atual</span>
+            <strong>40+</strong>
+            <span>minigames no arcade, todos estrelados pelos seus pets</span>
           </div>
           <div class="stat">
-            <strong>3</strong>
-            <span>modos de aparência: Claro, Noturno e Sistema</span>
+            <strong>8</strong>
+            <span>jogos com multiplayer online 1v1 via Game Center</span>
+          </div>
+          <div class="stat">
+            <strong>4</strong>
+            <span>plataformas: iPhone, Android, Apple Watch e Wear OS</span>
           </div>
           <div class="stat">
             <strong>.adex</strong>
             <span>formato nativo para exportar e importar a Dex</span>
           </div>
-          <div class="stat">
-            <strong>AR</strong>
-            <span>expansão do app com captura em ambiente real</span>
-          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="plataformas">
+      <div class="wrap">
+        <div class="section-head">
+          <h3>Um sistema, quatro telas</h3>
+          <p>O mesmo universo Anima PlayDEX acompanha você do bolso ao pulso.</p>
+        </div>
+
+        <div class="platforms">
+          <article class="platform">
+            <span class="icon" aria-hidden="true">📱</span>
+            <h4>iPhone</h4>
+            <p>Experiência completa: scanner, Dex, AnimaPet, arcade e online 1v1 pelo Game Center.</p>
+          </article>
+          <article class="platform">
+            <span class="icon" aria-hidden="true">🤖</span>
+            <h4>Android</h4>
+            <p>O mesmo console retro no Android, com Dex, AnimaPet e todo o arcade.</p>
+          </article>
+          <article class="platform">
+            <span class="icon" aria-hidden="true">⌚</span>
+            <h4>Apple Watch</h4>
+            <p>Cuide do pet e jogue minigames feitos sob medida para o relógio.</p>
+          </article>
+          <article class="platform">
+            <span class="icon" aria-hidden="true">⌚</span>
+            <h4>Wear OS</h4>
+            <p>Seus pets sincronizados com o telefone, com minigames no pulso.</p>
+          </article>
         </div>
       </div>
     </section>
