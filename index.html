@@ -437,23 +437,31 @@
 
     .shot img {
       width: 100%;
-      aspect-ratio: 1242 / 2688;
+      aspect-ratio: 1320 / 2868;
       object-fit: contain;
       background: #030504;
     }
 
-    .shot figcaption {
-      padding: 14px 16px 16px;
-      color: var(--muted);
-      font-size: 0.93rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
+    .store-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
     }
 
-    .shot strong {
+    .store-badges img {
+      height: 52px;
+      width: auto;
       display: block;
-      color: var(--text);
-      font-size: 1rem;
-      margin-bottom: 4px;
+    }
+
+    .store-badges a {
+      display: inline-flex;
+      transition: transform 180ms ease;
+    }
+
+    .store-badges a:hover {
+      transform: translateY(-1px);
     }
 
     .footer {
@@ -560,6 +568,15 @@
             <a class="btn primary" href="#galeria">Ver screenshots</a>
             <a class="btn secondary" href="#recursos">Explorar recursos</a>
             <a class="btn ghost" href="suporte.html">Falar com suporte</a>
+          </div>
+
+          <div class="store-badges" aria-label="Baixe o app">
+            <a href="https://play.google.com/store/apps/details?id=com.animalabs.animaplaydex" target="_blank" rel="noopener">
+              <img src="./android-download.png" alt="Disponível no Google Play">
+            </a>
+            <a href="https://apps.apple.com/br/app/anima-playdex/id6771863972" target="_blank" rel="noopener">
+              <img src="./ios-download.png" alt="Baixar na App Store">
+            </a>
           </div>
 
           <div class="meta-row" aria-label="Destaques do produto">
@@ -709,61 +726,37 @@
         <div class="gallery">
           <article class="shot">
             <figure>
-              <img loading="lazy" decoding="async" src="./IMG_7245_1242x2688.jpg" alt="Tela de captura em modo câmera do Anima PlayDEX">
-              <figcaption>
-                <strong>Captura</strong>
-                O fluxo de câmera já mostra a proposta: registrar, reconhecer e transformar em ficha.
-              </figcaption>
+              <img loading="lazy" decoding="async" src="./0.PNG" alt="Captura de tela do Anima PlayDEX">
             </figure>
           </article>
 
           <article class="shot">
             <figure>
-              <img loading="lazy" decoding="async" src="./IMG_7246_1242x2688.jpg" alt="Tela de ficha do pet com status e compartilhar">
-              <figcaption>
-                <strong>Ficha do pet</strong>
-                Layout de card com atributos, INFO editável e botão de compartilhamento.
-              </figcaption>
+              <img loading="lazy" decoding="async" src="./1.PNG" alt="Captura de tela do Anima PlayDEX">
             </figure>
           </article>
 
           <article class="shot">
             <figure>
-              <img loading="lazy" decoding="async" src="./IMG_7247_1242x2688.jpg" alt="Minigame Runner Jump do Anima PlayDEX">
-              <figcaption>
-                <strong>Runner Jump</strong>
-                Um dos minigames que reforça o lado arcade do produto.
-              </figcaption>
+              <img loading="lazy" decoding="async" src="./2.PNG" alt="Captura de tela do Anima PlayDEX">
             </figure>
           </article>
 
           <article class="shot">
             <figure>
-              <img loading="lazy" decoding="async" src="./IMG_7248_1242x2688.jpg" alt="Minigame Flappy Pet do Anima PlayDEX">
-              <figcaption>
-                <strong>Flappy Pet</strong>
-                O personagem vira protagonista também dentro do jogo.
-              </figcaption>
+              <img loading="lazy" decoding="async" src="./3.PNG" alt="Captura de tela do Anima PlayDEX">
             </figure>
           </article>
 
           <article class="shot">
             <figure>
-              <img loading="lazy" decoding="async" src="./IMG_7249_1242x2688.jpg" alt="Tela de puzzle com imagem do pet do Anima PlayDEX">
-              <figcaption>
-                <strong>Puzzle</strong>
-                O uso das imagens da Dex dentro do arcade faz a experiência parecer conectada.
-              </figcaption>
+              <img loading="lazy" decoding="async" src="./4.PNG" alt="Captura de tela do Anima PlayDEX">
             </figure>
           </article>
 
           <article class="shot">
             <figure>
-              <img loading="lazy" decoding="async" src="./IMG_7250_1242x2688.jpg" alt="Tela de Blitz AR com pet no ambiente">
-              <figcaption>
-                <strong>Blitz AR</strong>
-                A prova de que o app vai além do 2D e entrega experiências no espaço real.
-              </figcaption>
+              <img loading="lazy" decoding="async" src="./6.PNG" alt="Captura de tela do Anima PlayDEX">
             </figure>
           </article>
         </div>
